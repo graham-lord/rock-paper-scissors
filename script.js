@@ -3,4 +3,9 @@ function computerPlay() {
     return options[Math.floor(Math.random() * 3) + 1];
 }
 
-console.log(computerPlay());
+let computerSelection = computerPlay();
+let playerSelection = 'Rock';
+
+playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();
+
+console.log(playerSelection);
