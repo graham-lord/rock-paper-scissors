@@ -1,42 +1,50 @@
+// global variables
+
+
+let computerScore = 0;
+let playerScore = 0;;
+
+// a function that will randomly return either 'rock', 'paper', 'scissors'
 function computerPlay() {
-    let options = ['', 'Rock', 'Paper', 'Scissors'];
-    return options[Math.floor(Math.random() * 3) + 1];
+    let options = ['rock', 'paper', 'scissors'];
+    let answer = options[Math.floor(Math.random() * 3)]
+
+    return answer;
 }
 
-function playRound() {
-    let computerSelection = computerPlay();
-    let playerSelection = prompt("Rock, Paper or Scissors!");
-
-    console.log(computerSelection);
-    playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1).toLowerCase();
-
+//a function that plays a single round of Rock Paper Scissors.
+function playRound(playerSelection, computerSelection) {
     let result;
+
     switch(true) {
         case playerSelection === computerSelection:
-            result = "Draw!";
+            result = 'It\'s a tie!';
             break;
-        case playerSelection === 'Rock' && computerSelection === 'Scissors':
-            result = 'You Win! Rock beats Scissors.';
+        case playerSelection === 'rock' && computerSelection === 'scissors' || playerSelection === 'paper' && computerSelection === 'rock' || playerSelection === 'scissors' && computerSelection === 'paper':
+            result = `You win! ${playerSelection} beats ${computerSelection}!`;
+            playerScore += 1;
             break;
-        case playerSelection === 'Rock' && computerSelection === 'Paper':
-            result = 'You Lose! Paper beats Rock.';
-            break;
-        case playerSelection === 'Paper' && computerSelection === 'Rock':
-            result = 'You win! Paper beats Rock.';
-            break;
-        case playerSelection === 'Paper' && computerSelection === 'Scissors':
-            result = 'You lose! Scissors beats Paper.';
-            break;
-        case playerSelection === 'Scissors' && computerSelection === 'Rock':
-            result = 'You lose! Rock beats Scissors.';
-            break;
-        case playerSelection === 'Scissors' && computerSelection === 'Paper':
-            result = 'You win! Scissors beats Paper.';
-            break;
-        default:
-            result = "Enter a valid input!";
+        case computerSelection === 'rock' && playerSelection === 'scissors' || computerSelection === 'paper' && playerSelection === 'rock' || computerSelection === 'scissors' && playerSelection === 'paper':
+            result = `You lose! ${computerSelection} beats ${playerSelection}!`;
+            computerScore += 1;
+            break;  
     }
 
     return result;
 }
+
+// a function that will let the round run 5 times
+let game = () => {
+    for(let i = 0; i < 5; i++) {
+        let playerSelection = prompt('Rock, Paper or Scissors?').toLowerCase();
+        console.log(playRound(playerSelection, computerPlay()));
+        console.log(`Player Score: ${playerScore}`);
+        console.log(`Computer Score: ${computerScore}`);
+        console.log('');
+    }
+}
+
+//program starts here
+game();
+
 
